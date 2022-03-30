@@ -1,21 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PaintbrushTip : MonoBehaviour
 {
-    public Material paint;
+    public Color color;
 
-    private void OnTriggerEnter(Collider other)
+    public void ChangePaint(Image image)
     {
-        if (other.tag == "Paint")
-        {
-            paint = other.GetComponent<Renderer>().material;
-            this.GetComponent<Renderer>().material = paint;
-        }
-        else if (other.tag == "Paintable")
-        {
-            other.GetComponent<Renderer>().material = paint;
-        }
+        color = image.color;
     }
 }

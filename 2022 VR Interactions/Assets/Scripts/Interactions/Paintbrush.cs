@@ -7,9 +7,9 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class Paintbrush : XRGrabInteractable
 {
     public GameObject paintPrefab;
-    public GameObject spawnedPaint;
+    public Color color;
+    private GameObject spawnedPaint;
     private PaintbrushTip paintbrushTip;
-
     private bool triggerDown;
     private float triggerHeldTime;
 
@@ -38,8 +38,8 @@ public class Paintbrush : XRGrabInteractable
     private void TriggerPulled(ActivateEventArgs args)
     {
         spawnedPaint = Instantiate(paintPrefab, paintbrushTip.gameObject.transform.position, paintbrushTip.gameObject.transform.rotation);
-        TrailRenderer paintTrail = spawnedPaint.GetComponent<TrailRenderer>();
-        paintTrail.GetComponent<Renderer>().material = paintbrushTip.paint;
+        Material trailMaterial = spawnedPaint.GetComponent<TrailRenderer>().material;
+        trailMaterial.color = paintbrushTip.color;
         triggerDown = true;
     }
 

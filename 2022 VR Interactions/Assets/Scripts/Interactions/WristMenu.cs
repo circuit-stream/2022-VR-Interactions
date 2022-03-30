@@ -8,35 +8,54 @@ using UnityEngine.InputSystem;
 /// </summary>
 public class WristMenu : MonoBehaviour
 {
-    public GameObject wristUI;
-    public InputActionReference toggleReference = null;
+    public GameObject locomotionUI;
+    public GameObject paintUI;
+    public InputActionReference locomotionToggleReference = null;
+    public InputActionReference paintSelectionToggleReference = null;
 
-    private bool active = false;
+    private bool locomotionActive = false;
+    private bool paintSelectionActive = false;
 
     void Start()
     {
-        toggleReference.action.performed += MenuPressed;
+        locomotionToggleReference.action.performed += PrimaryButtonPressed;
+        paintSelectionToggleReference.action.performed += SecondaryButtonPressed;
     }
     private void OnDestroy()
     {
-        toggleReference.action.performed -= MenuPressed;
+        locomotionToggleReference.action.performed -= PrimaryButtonPressed;
+        paintSelectionToggleReference.action.performed += SecondaryButtonPressed;
     }
 
     /// <summary>
     /// Wrapper
     /// </summary>
     /// <param name="context"></param>
-    public void MenuPressed(InputAction.CallbackContext context)
+    public void PrimaryButtonPressed(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
-            DisplayWristUI();
+            DisplayLocomotionUI();
+        }
+    }
+
+    public void SecondaryButtonPressed(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            DisplayPaintUI();
         }
     }
     
-    public void DisplayWristUI()
+    public void DisplayLocomotionUI()
     {
-        active = !active;
-        wristUI.SetActive(active);
+        locomotionActive = !locomotionActive;
+        locomotionUI.SetActive(locomotionActive);
+    }
+
+    public void DisplayPaintUI()
+    {
+        locomotionActive = !locomotionActive;
+        paintUI.SetActive(locomotionActive);
     }
 }
